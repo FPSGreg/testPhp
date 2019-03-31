@@ -7,11 +7,11 @@ class Product{
 
     public $id, $name, $price, $premium;
 
-    function __construct( string $name,int $price){
+    public function __construct( string $name,int $price){
 
 
     
-        if($price > 0){
+        if ($price > 0) {
             $this->name = $name;
             $this->price = $price;
 
@@ -26,8 +26,8 @@ class Product{
 
             throw new \Exception("Цена не может быть ниже 1");
 
-    }
+         }
 
-   }
+     }
 
 }
