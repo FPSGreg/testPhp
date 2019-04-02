@@ -36,12 +36,15 @@ if ($url == "/api/products/create") {
 
 /** Придумать способ как при GET запросе можно было бы получать только 1 продукт, передавая его id
  */
-try {
-echo json_encode( $PS->getById($_GET["id"]));
-} catch (\Exception $e) {
-    echo 'Выброшено исключение: '.  $e->getMessage(). "\n";
-    echo "Выброшено исключение2: ". $e->getTraceAsString();
+if(isset($_GET["id"])){
+    try {
+    echo json_encode( $PS->getById($_GET["id"]));
+    } catch (\Exception $e) {
+        echo 'Выброшено исключение: '.  $e->getMessage(). "\n";
+        echo "Выброшено исключение2: ". $e->getTraceAsString();
+    }
 }
+
 
 
 /**Для запроса методом GET по url /api/products должны быть отображенный все продукты в формате json */
