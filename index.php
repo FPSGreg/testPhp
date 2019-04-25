@@ -6,26 +6,71 @@ use RedBeanPHP\R as R;
 use Engine\Product\Product;
 use Engine\Product\ProductService;
 use Engine\Product\ProductRepository;
-
+use Engine\User\UserService;
+use Engine\User\User;
+use Engine\User\UserRepository;
 
 R::setup( 'mysql:host=localhost;dbname=mydb', 'root', '' );
 
 
 
+
+
 echo "<pre>";
 
+$UserRepository = new UserRepository();
+$UserService = new UserService();
+// $UserService->login("Имя","password");
+$UserService->raiseAmount(4, 350);
+
+
+
 $Product = new Product("NewProduct", 302000);
-
 $PS = new ProductService();
-
 $Repository = new ProductRepository;
 
 $url = $_SERVER['REQUEST_URI'];
+
+
+
+if($url == "/api/users/amount/raise") {
+    try{
+        $UserService->raiseAmount($_POST["id"], $_POST["amount"]);;
+    } catch (\Exception $e) {
+        echo 'Выброшено исключение: '.  $e->getMessage(). "\n";
+        echo "Выброшено исключение2: ". $e->getTraceAsString();
+    }    
+}
+
+
+
+
+if($url == "/api/users/login") {
+    try{
+        $UserService->login($_POST["login"], $_POST["password"]);
+    } catch (\Exception $e) {
+        echo 'Выброшено исключение: '.  $e->getMessage(). "\n";
+        echo "Выброшено исключение2: ". $e->getTraceAsString();
+    }    
+}
+
+
+if($url == "/api/users/signup") {
+    try{
+        var_dump($_POST);
+        $UserService->signup($_POST["login"], $_POST["password"]);
+    } catch (\Exception $e) {
+        echo 'Выброшено исключение: '.  $e->getMessage(). "\n";
+        echo "Выброшено исключение2: ". $e->getTraceAsString();
+    }    
+}
+
 
 /**при запросе методом POST по url /api/products/create должен быть вызван метод create у ProductService данные для создания продукта берутся из массива $_POST.
  */
 if ($url == "/api/products/create") {
     try {
+        var_dump($_POST);
         $PS->create($_POST["Name"], $_POST["Cost"]); 
     } catch (\Exception $e) {
         echo 'Выброшено исключение: '.  $e->getMessage(). "\n";
