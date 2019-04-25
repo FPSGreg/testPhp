@@ -2,38 +2,28 @@
 
 namespace Engine\User;
 
-use Engine\User\UserRepository;
 
 class UserService{
     
-    public $Repository;
-
-    public function __construct(){
-
-        $this->Repository = new UserRepository;
-    }
-
 
     public function signup(string $login, string $password){
 
-        $user = new User( $login, $password );
-        $this->Repository->saveUser($user);
+        $user = new Product( $login, $password );
+        $UserRepository = new UserRepository;
+        $UserRepository->saveUser($user);
 
         return $user;
 
     }
 
 
-    public function login($login, $password){
- 
-        $id = $this->Repository->RepositoryLogin($login, $password);
-        echo ("id - " . "{$id}");
+    public function login(User $login, User $password){
+
     }
 
 
     public function raiseAmount($id, int $amount){
 
-        $this->Repository->AddAmount($id, $amount);
     }
 
 }

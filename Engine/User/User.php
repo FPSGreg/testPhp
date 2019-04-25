@@ -10,8 +10,6 @@ class User{
 
     public function __construct(string $login, string $password){
 
-        $this->login = $login;
-        $this->password = $password;
     }
 
 }
