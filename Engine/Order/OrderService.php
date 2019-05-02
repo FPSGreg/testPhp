@@ -2,13 +2,14 @@
 
 
 namespace Engine\Order;
-use RedBeanPHP\R as R;
+use Engine\Order\OrderRepository;
 
-class OrderRepository{
+class OrderService{
 
 
-    public function buy(User $UserID, Product $ProductID){
-
+    public function buy($UserID, $ProductID){
+        $OrderRepository = new OrderRepository;
+        $OrderRepository->OrderFindByID($UserID, $ProductID);
     }
 
 

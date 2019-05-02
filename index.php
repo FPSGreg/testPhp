@@ -10,6 +10,7 @@ use Engine\User\UserService;
 use Engine\User\User;
 use Engine\User\UserRepository;
 use Engine\Order\OrderRepository;
+use Engine\Order\OrderService;
 
 R::setup( 'mysql:host=localhost;dbname=mydb', 'root', '' );
 
@@ -18,9 +19,10 @@ R::setup( 'mysql:host=localhost;dbname=mydb', 'root', '' );
 
 
 echo "<pre>";
-
-$OrderRepository = new OrderRepository();
-$OrderRepository->OrderFindByID(1,90);
+$OrderService = new OrderService();
+$OrderService->buy(1,90);
+// $OrderRepository = new OrderRepository();
+// $OrderRepository->OrderFindByID(1,90);
 $UserRepository = new UserRepository();
 $UserService = new UserService();
 $UserService->raiseAmount(4, 350);
