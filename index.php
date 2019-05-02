@@ -20,7 +20,7 @@ R::setup( 'mysql:host=localhost;dbname=mydb', 'root', '' );
 
 echo "<pre>";
 $OrderService = new OrderService();
-$OrderService->buy(3,3);
+// $OrderService->buy(3,3);
 // $OrderRepository = new OrderRepository();
 // $OrderRepository->OrderFindByID(1,90);
 $UserRepository = new UserRepository();
@@ -35,6 +35,15 @@ $Repository = new ProductRepository;
 $url = $_SERVER['REQUEST_URI'];
 
 
+
+if($url == "/api/order/create") {
+    try{
+        $OrderService->buy($_POST["UserID"],$_POST["ProductID"]);
+    } catch (\Exception $e) {
+        echo 'Выброшено исключение: '.  $e->getMessage(). "\n";
+        echo "Выброшено исключение2: ". $e->getTraceAsString();
+    }    
+}
 
 if($url == "/api/users/amount/raise") {
     try{
