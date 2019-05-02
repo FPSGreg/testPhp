@@ -20,12 +20,11 @@ R::setup( 'mysql:host=localhost;dbname=mydb', 'root', '' );
 
 echo "<pre>";
 $OrderService = new OrderService();
-$OrderService->buy(1,90);
+$OrderService->buy(3,3);
 // $OrderRepository = new OrderRepository();
 // $OrderRepository->OrderFindByID(1,90);
 $UserRepository = new UserRepository();
 $UserService = new UserService();
-$UserService->raiseAmount(4, 350);
 
 
 

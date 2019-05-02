@@ -9,7 +9,10 @@ class OrderService{
 
     public function buy($UserID, $ProductID){
         $OrderRepository = new OrderRepository;
-        $OrderRepository->OrderFindByID($UserID, $ProductID);
+        $result = $OrderRepository->OrderFindByID($UserID, $ProductID);
+        if ($result == 1){
+            $OrderRepository->CreateOrder($UserID, $ProductID);
+        }
     }
 
 
