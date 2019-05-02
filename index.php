@@ -9,6 +9,7 @@ use Engine\Product\ProductRepository;
 use Engine\User\UserService;
 use Engine\User\User;
 use Engine\User\UserRepository;
+use Engine\Order\OrderRepository;
 
 R::setup( 'mysql:host=localhost;dbname=mydb', 'root', '' );
 
@@ -18,9 +19,10 @@ R::setup( 'mysql:host=localhost;dbname=mydb', 'root', '' );
 
 echo "<pre>";
 
+$OrderRepository = new OrderRepository();
+$OrderRepository->OrderFindByID(1,90);
 $UserRepository = new UserRepository();
 $UserService = new UserService();
-// $UserService->login("Имя","password");
 $UserService->raiseAmount(4, 350);
 
 
