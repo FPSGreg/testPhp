@@ -34,7 +34,14 @@ $Repository = new ProductRepository;
 
 $url = $_SERVER['REQUEST_URI'];
 
-
+if($url =="/api/order/findById"){
+    try{
+        $OrderService->FindById($_POST["id"]);
+    } catch (\Exception $e) {
+        echo 'Выброшено исключение: '.  $e->getMessage(). "\n";
+        echo "Выброшено исключение2: ". $e->getTraceAsString();
+    }    
+}
 
 if($url == "/api/order/create") {
     try{
@@ -47,7 +54,7 @@ if($url == "/api/order/create") {
 
 if($url == "/api/users/amount/raise") {
     try{
-        $UserService->raiseAmount($_POST["id"], $_POST["amount"]);;
+        $UserService->raiseAmount($_POST["id"], $_POST["amount"]);
     } catch (\Exception $e) {
         echo 'Выброшено исключение: '.  $e->getMessage(). "\n";
         echo "Выброшено исключение2: ". $e->getTraceAsString();
