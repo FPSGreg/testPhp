@@ -11,6 +11,7 @@ use Engine\User\User;
 use Engine\User\UserRepository;
 use Engine\Order\OrderRepository;
 use Engine\Order\OrderService;
+use Engine\Category\CategoryRepository;
 
 R::setup( 'mysql:host=localhost;dbname=mydb', 'root', '' );
 
@@ -19,6 +20,9 @@ R::setup( 'mysql:host=localhost;dbname=mydb', 'root', '' );
 
 
 echo "<pre>";
+$CategoryRepository = new CategoryRepository();
+$CategoryRepository->CategoryCreate("qq");
+
 $OrderService = new OrderService();
 // $OrderService->buy(3,3);
 // $OrderRepository = new OrderRepository();
@@ -76,7 +80,6 @@ if($url == "/api/users/login") {
 
 if($url == "/api/users/signup") {
     try{
-        var_dump($_POST);
         $UserService->signup($_POST["login"], $_POST["password"]);
     } catch (\Exception $e) {
         echo 'Выброшено исключение: '.  $e->getMessage(). "\n";
@@ -89,7 +92,7 @@ if($url == "/api/users/signup") {
  */
 if ($url == "/api/products/create") {
     try {
-        var_dump($_POST);
+  
         $PS->create($_POST["Name"], $_POST["Cost"]); 
     } catch (\Exception $e) {
         echo 'Выброшено исключение: '.  $e->getMessage(). "\n";
@@ -129,3 +132,5 @@ if ($url == "/api/products?premium=false") {
     echo json_encode($Repository->loadDefaultProducts());
 
 }
+
+//multipart/form-data; boundary=----WebKitFormBoundaryyEmKNDsBKjB7QEqu
