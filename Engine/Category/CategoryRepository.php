@@ -6,15 +6,14 @@ use Engine\Category\Category;
 
 class CategoryRepository{
 
-    public function CategoryCreate($category){
+    public function CategoryCreate($Category){
         
-        echo $category;   
-
-       $BDCategory = R::dispense("category");
-    //    $BDCategory->name = $category->name;
-    //    $BDCategory->id = R::store($category);
+          var_dump($Category);   
+          $BDCategory = R::dispense("category");
+          $BDCategory->name = $Category->name;
+          R::store($BDCategory);
         
-    //    echo $BDCategory;   
+        var_dump($BDCategory);   
 
 
 

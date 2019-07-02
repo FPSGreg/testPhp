@@ -6,8 +6,19 @@ use Engine\Category\CategoryRepository;
 
 class CategoryService{
 
-    public function CreateACategory(){
+    public $CategoryRepository;
 
+    // public function __construct(){
+
+    //     $this->CategoryRepository = new CategoryRepository;
+    // }
+
+
+    public function CreateACategory(string $categorys){
+
+        $Category = new Category($categorys);
         $CategoryRepository = new CategoryRepository;
-        $CategoryRepository->CategoryCreate();
+        $CategoryRepository->CategoryCreate($Category);
+
     }
+}

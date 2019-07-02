@@ -12,6 +12,7 @@ use Engine\User\UserRepository;
 use Engine\Order\OrderRepository;
 use Engine\Order\OrderService;
 use Engine\Category\CategoryRepository;
+use Engine\Category\CategoryService;
 
 R::setup( 'mysql:host=localhost;dbname=mydb', 'root', '' );
 
@@ -21,7 +22,7 @@ R::setup( 'mysql:host=localhost;dbname=mydb', 'root', '' );
 
 echo "<pre>";
 $CategoryRepository = new CategoryRepository();
-$CategoryRepository->CategoryCreate("qq");
+$CategoryService = new CategoryService();
 
 $OrderService = new OrderService();
 // $OrderService->buy(3,3);
@@ -41,6 +42,15 @@ $url = $_SERVER['REQUEST_URI'];
 if($url =="/api/order/findById"){
     try{
         $OrderService->FindById($_POST["id"]);
+    } catch (\Exception $e) {
+        echo 'Выброшено исключение: '.  $e->getMessage(). "\n";
+        echo "Выброшено исключение2: ". $e->getTraceAsString();
+    }    
+}
+
+if($url =="/api/category/CreateCategory"){
+    try{
+        $CategoryService->CreateACategory($_POST["Name"]);
     } catch (\Exception $e) {
         echo 'Выброшено исключение: '.  $e->getMessage(). "\n";
         echo "Выброшено исключение2: ". $e->getTraceAsString();
