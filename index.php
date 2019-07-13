@@ -19,15 +19,11 @@ R::setup( 'mysql:host=localhost;dbname=mydb', 'root', '' );
 
 
 
-
 echo "<pre>";
 $CategoryRepository = new CategoryRepository();
 $CategoryService = new CategoryService();
 
 $OrderService = new OrderService();
-// $OrderService->buy(3,3);
-// $OrderRepository = new OrderRepository();
-// $OrderRepository->OrderFindByID(1,90);
 $UserRepository = new UserRepository();
 $UserService = new UserService();
 
@@ -38,6 +34,27 @@ $PS = new ProductService();
 $Repository = new ProductRepository;
 
 $url = $_SERVER['REQUEST_URI'];
+
+
+if (strpos($url, "/api/category/getCategory") !== false){
+    try{
+        echo json_encode($CategoryService->GetThisCategory($_GET["id"]));
+
+    } catch (\Exception $e) {
+        echo 'Выброшено исключение: '.  $e->getMessage(). "\n";
+        echo "Выброшено исключение2: ". $e->getTraceAsString();
+    }
+}
+
+if($url == "/api/category/getAll"){
+    try{
+        echo json_encode($CategoryService->GetAllCategory());
+    } catch (\Exception $e) {
+        echo 'Выброшено исключение: '.  $e->getMessage(). "\n";
+        echo "Выброшено исключение2: ". $e->getTraceAsString();
+    }
+}
+
 
 if($url =="/api/order/findById"){
     try{
@@ -51,6 +68,15 @@ if($url =="/api/order/findById"){
 if($url =="/api/category/CreateCategory"){
     try{
         $CategoryService->CreateACategory($_POST["Name"]);
+    } catch (\Exception $e) {
+        echo 'Выброшено исключение: '.  $e->getMessage(). "\n";
+        echo "Выброшено исключение2: ". $e->getTraceAsString();
+    }    
+}
+
+if($url =="/api/category/DeleteCategory"){
+    try{
+        $CategoryService->DeleteACategory($_POST["id"]);
     } catch (\Exception $e) {
         echo 'Выброшено исключение: '.  $e->getMessage(). "\n";
         echo "Выброшено исключение2: ". $e->getTraceAsString();
@@ -103,7 +129,7 @@ if($url == "/api/users/signup") {
 if ($url == "/api/products/create") {
     try {
   
-        $PS->create($_POST["Name"], $_POST["Cost"]); 
+        $PS->create($_POST["Name"], $_POST["Cost"], $_POST["id"]); 
     } catch (\Exception $e) {
         echo 'Выброшено исключение: '.  $e->getMessage(). "\n";
         echo "Выброшено исключение2: ". $e->getTraceAsString();
@@ -113,14 +139,17 @@ if ($url == "/api/products/create") {
 
 /** Придумать способ как при GET запросе можно было бы получать только 1 продукт, передавая его id
  */
-if(isset($_GET["id"])){
+
+ if($url == "/api/products/getById"){
+     if(isset($_GET["id"])){
     try {
     echo json_encode( $PS->getById($_GET["id"]));
     } catch (\Exception $e) {
         echo 'Выброшено исключение: '.  $e->getMessage(). "\n";
         echo "Выброшено исключение2: ". $e->getTraceAsString();
     }
-}
+}}
+
 
 
 

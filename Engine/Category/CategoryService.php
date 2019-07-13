@@ -8,17 +8,35 @@ class CategoryService{
 
     public $CategoryRepository;
 
-    // public function __construct(){
+    public function __construct(){
 
-    //     $this->CategoryRepository = new CategoryRepository;
-    // }
+        $this->CategoryRepository = new CategoryRepository;
+    }
 
 
     public function CreateACategory(string $categorys){
 
-        $Category = new Category($categorys);
-        $CategoryRepository = new CategoryRepository;
-        $CategoryRepository->CategoryCreate($Category);
+        $this->CategoryRepository->CategoryCreate($categorys);
 
     }
+
+    public function DeleteACategory(int $id){
+
+        $this->CategoryRepository->CategoryDelete($id);
+
+    }
+
+    public function GetAllCategory(){
+
+        return $this->CategoryRepository->GetAll();
+        
+
+    }
+
+    public function GetThisCategory(int $id){
+
+        return $this->CategoryRepository->GetCategory($id);
+         
+    }
+
 }

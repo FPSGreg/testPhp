@@ -5,7 +5,7 @@ use Engine\Product\ProductService as PS;
 
 class Product{
 
-    public $id, $name, $price, $premium;
+    public $id, $name, $price, $premium, $category;
 
     public function __construct( string $name,int $price){
 

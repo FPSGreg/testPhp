@@ -18,10 +18,10 @@ class ProductService{
 
 
 
-    public function create( string $name, int $price){
+    public function create( string $name, int $price, int $CategoryID){
         
             $product = new Product($name, $price);
-            $this->Repository->save($product);
+            $this->Repository->save($product, $CategoryID);
 
             return $product;
     }

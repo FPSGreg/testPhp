@@ -26,12 +26,13 @@ class ProductRepository{
     }
 
     
-    public function save(Product $product){
-
+    public function save(Product $product, int $id){
+       $Category = R::load( "category", $id);
        $products = R::dispense("products");
        $products->name = $product->name;
        $products->cost = $product->price;
        $products->premium = $product->premium;
+       $products->category = $Category->name;
        $products->id = R::store($products);
         
        return $product;   
